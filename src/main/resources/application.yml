@@ -1,0 +1,11 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 10
+    lettuce:
+      pool:
+        min-idle: 1
+        max-idle: 2
+        max-active: 2
+        max-wait: 10ms
