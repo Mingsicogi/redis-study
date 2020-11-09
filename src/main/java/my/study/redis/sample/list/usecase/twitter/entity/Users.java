@@ -19,8 +19,9 @@ public class Users {
     @Column(name = "user_id")
     private String userId;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Posts> postsList = new ArrayList<>();
 
-    @
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 }
