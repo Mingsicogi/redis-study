@@ -9,3 +9,30 @@ spring:
         max-idle: 2
         max-active: 2
         max-wait: 10ms
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/twitter
+    username: root
+    password: root!123123
+
+  #개발에 사용하는 옵션(create - table를 매번 새로 만듬, update - 변경된 부분만 업데이트), 리얼에서는 validate
+  # update 사용시 주의가 필요함. 컬럼이 삭제 되었을때, 반영하지 못해 쓰레기 값이 남을 수 있음. 컬럼 명이 바꼈을때 반영되지 않음. 툴을 통한 관리 필요.
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    # sql을 보여줌
+    show-sql: true
+
+    # sql format pretty
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+
+  thymeleaf:
+    cache: false
+    enabled: true
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
