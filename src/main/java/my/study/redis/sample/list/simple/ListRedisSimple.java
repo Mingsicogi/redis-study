@@ -28,7 +28,7 @@ public class ListRedisSimple {
 
     @GetMapping("/getListFromTo")
     public ResponseEntity<Object> getListFromTo(String keyOfList, Integer start, Integer end) {
-        return ResponseEntity.ok(listRedisSampleService.getListStartToEnd(keyOfList, start, end));
+        return ResponseEntity.ok(listRedisSampleService.getListStartToEnd(keyOfList, start, end).orElseThrow(RedisApplication.NotFoundException::new));
     }
 
     @GetMapping("/popRight")

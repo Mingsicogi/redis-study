@@ -3,6 +3,8 @@ package my.study.redis;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.sync.RedisCommands;
+import io.lettuce.core.codec.ByteArrayCodec;
+import io.lettuce.core.codec.RedisCodec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,6 +41,15 @@ public class RedisApplication {
         @Bean
         public RedisCommands<String, String> stringRedisCommands() {
             return redisClient.connect().sync();
+        }
+
+        @Bean
+        public RedisCommands<byte[], byte[]> byteRedisCommands() {
+            return redisClient.connect(byteCodec()).sync();
+        }
+
+        private RedisCodec<byte[], byte[]> byteCodec() {
+            return new ByteArrayCodec();
         }
     }
 

@@ -16,9 +16,17 @@ import java.util.Optional;
 public class ListRedisSampleService {
 
     private final RedisCommands<String, String> redisCommands;
+    private final RedisCommands<byte[], byte[]> redisByteCommands;
 
     public Long pushToLeft(String keyOfList, String... value) {
         Long listSize = redisCommands.lpush(keyOfList, value);
+        log.info("total {} size : {}", keyOfList, listSize);
+
+        return listSize;
+    }
+
+    public Long pushToLeft(byte[] keyOfList, byte[]... value) {
+        Long listSize = redisByteCommands.lpush(keyOfList, value);
         log.info("total {} size : {}", keyOfList, listSize);
 
         return listSize;
@@ -31,13 +39,29 @@ public class ListRedisSampleService {
         return listSize;
     }
 
-    public List<String> getListStartToEnd(String keyOfList, Integer start, Integer end) {
+    public Long pushToRight(byte[] keyOfList, byte[]... value) {
+        Long listSize = redisByteCommands.rpush(keyOfList, value);
+        log.info("total {} size : {}", keyOfList, listSize);
+
+        return listSize;
+    }
+
+    public Optional<List<String>> getListStartToEnd(String keyOfList, Integer start, Integer end) {
         List<String> values = redisCommands.lrange(keyOfList, start, end);
         if(values == null || values.isEmpty()) {
-            throw new RedisApplication.NotFoundException();
+            return Optional.empty();
         }
 
-        return values;
+        return Optional.of(values);
+    }
+
+    public Optional<List<byte[]>> getListStartToEnd(byte[] keyOfList, Integer start, Integer end) {
+        List<byte[]> values = redisByteCommands.lrange(keyOfList, start, end);
+        if(values == null || values.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(values);
     }
 
     public Optional<String> popRight(String keyOfList) {

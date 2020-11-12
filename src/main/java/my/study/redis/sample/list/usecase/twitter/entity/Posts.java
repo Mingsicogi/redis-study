@@ -1,8 +1,10 @@
 package my.study.redis.sample.list.usecase.twitter.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.List;
 @Table(name = "posts", indexes = {
         @Index(columnList = "reg_ymdt")
 })
-public class Posts {
+@NoArgsConstructor
+public class Posts implements Serializable {
 
     @Id
     @GeneratedValue
@@ -37,4 +40,11 @@ public class Posts {
 
     @OneToMany(mappedBy = "posts", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
+
+    public Posts(String title, String contents, LocalDateTime regYmdt, Users user) {
+        this.title = title;
+        this.contents = contents;
+        this.regYmdt = regYmdt;
+        this.user = user;
+    }
 }

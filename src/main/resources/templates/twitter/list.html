@@ -6,6 +6,9 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <div>
+            <h1 th:if="${useRedis}" style="color: red">USE REDIS</h1>
+        </div>
+        <div>
             Page Loading Time : <input th:value="${pageLoadingTime}" th:text="seconds"/>
         </div>
         <table class="table table-striped">

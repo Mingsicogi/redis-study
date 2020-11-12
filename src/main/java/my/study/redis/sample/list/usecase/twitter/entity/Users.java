@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
         @UniqueConstraint(name = "UNQ_userId", columnNames = {"user_id"})
 })
 @NoArgsConstructor
-public class Users {
+public class Users implements Serializable {
 
     @Id
     @GeneratedValue
