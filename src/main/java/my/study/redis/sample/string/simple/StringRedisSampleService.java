@@ -41,6 +41,10 @@ public class StringRedisSampleService {
         return redisCommands.expire(key, seconds);
     }
 
+    public void countUp(String key) {
+        redisCommands.incr(key);
+    }
+
     /**
      * get redis command
      *

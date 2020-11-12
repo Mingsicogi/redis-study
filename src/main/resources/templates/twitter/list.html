@@ -6,6 +6,7 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <div>
+            <h1 th:text="'TOTAL COUNT' + ':' + ${totalPostsCount}"></h1>
             <h1 th:if="${useRedis}" style="color: red">USE REDIS</h1>
         </div>
         <div>
