@@ -15,6 +15,10 @@ public class PostsLike {
     @Column(name = "posts_like_id")
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "likes")
+    private Posts posts;
+
     @Column(name = "reg_ymdt")
     private LocalDateTime regYmdt;
 }
