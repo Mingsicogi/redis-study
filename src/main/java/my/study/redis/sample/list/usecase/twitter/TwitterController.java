@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.stream.Collectors.reducing;
 import static java.util.stream.Collectors.toList;
 
 @Controller
@@ -29,12 +28,15 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class TwitterController {
 
+    // redis sample service
     private final ListRedisSampleService listRedisSampleService;
     private final StringRedisSampleService stringRedisSampleService;
 
+    // repositories
     private final PostsRepository postsRepository;
     private final UserRepository userRepository;
 
+    // contants
     static final String TWITTER_LATEST_POST_COMMON_KEY = "twitter:post:latest:";
     static final String TWITTER_POST_TOTAL_COUNT_KEY = "twitter:post:total:count";
     static final Integer LATEST_COUNT = 100;
@@ -42,10 +44,11 @@ public class TwitterController {
     @GetMapping("/posts/latest10")
     public String list(@RequestParam String userId, Model model) {
         StopWatch stopWatch = new StopWatch();
-
         stopWatch.start();
+
         Users user = userRepository.findByUserId(userId);
         List<Posts> latestPostsList = postsRepository.findTop100ByUserOrderByRegYmdtDescIdDesc(user);
+
         stopWatch.stop();
 
         model.addAttribute("latestPostsList", latestPostsList);
